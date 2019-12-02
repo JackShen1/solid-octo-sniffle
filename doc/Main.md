@@ -586,15 +586,15 @@ CRM-системами.
 
 *Посилання на діаграму:* [img/usecase.png](img/usecase.png)
 
-    *Usecase Аналітик:* [img/analyst.png](img/analyst.png)
+   *Usecase Аналітик:* [img/analyst.png](img/analyst.png)
 
-    *Usecase Менеджер:* [img/manager.png](img/manager.png)
+   *Usecase Менеджер:* [img/manager.png](img/manager.png)
 
-    *Usecase Системний юзер:* [img/system_user.png](img/system_user.png)
+   *Usecase Системний юзер:* [img/system_user.png](img/system_user.png)
 
-    *Usecase Користувач:* [img/user.png](img/user.png)
+   *Usecase Користувач:* [img/user.png](img/user.png)
 
-    *Usecase Експерт:* [img/expert.png](img/expert.png)
+   *Usecase Експерт:* [img/expert.png](img/expert.png)
 
 3.3. Сценарії без участі системи
 --------------------------------
