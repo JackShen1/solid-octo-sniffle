@@ -1096,13 +1096,9 @@ CRM-системами.
 
 >   List\<Metadata\> md = q.getMetadata(); List\<Variant\> vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   vs.add(**new** Variant(q, 1, **"Кожен день"**)); vs.add(**new** Variant(q,
 >   2, **"Декілька разів на**
@@ -1203,9 +1199,7 @@ CRM-системами.
 >   **"matrix.row_answers.max"**, **"1"**));
 
 >   md.add(**new** Metadata(q, **"matrix.rows"**, **"10"**)); md.add(**new**
->   Metadata(q, **"matrix.columns"**,
-
->   **"3"**));
+>   Metadata(q, **"matrix.columns"**, **"3"**));
 
 >   List\<Variant\> rows = **new** ArrayList\<\>(); List\<Variant\> columns =
 >   **new** ArrayList\<\>(); rows.add(**new** Variant(q, 1, **"Пригоди"**));
@@ -1242,13 +1236,9 @@ CRM-системами.
 
 >   md = q.getMetadata(); vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   vs.add(**new** Variant(q, 1, **"Чоловіча"**)); vs.add(**new** Variant(q, 2,
 >   **"Жіноча"**)); **return** poll;
@@ -1374,13 +1364,9 @@ qs.add(q);
 
 >   md = q.getMetadata(); vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   vs.add(**new** Variant(q, 1, **"PlayStation"**)); vs.add(**new** Variant(q,
 >   2, **"Xbox"**)); vs.add(**new** Variant(q, 3, **"Жоден з**
@@ -1398,21 +1384,15 @@ qs.add(q);
 
 >   md = q.getMetadata(); vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   vs.add(**new** Variant(q, 1, **"0 - 500 грн"**));
 
 >   vs.add(**new** Variant(q, 2, **"501 - 1000 грн"**));
 
->   vs.add(**new** Variant(q, 3, **"1 001 - 2 500**
-
->   **грн"**));
+>   vs.add(**new** Variant(q, 3, **"1 001 - 2 500 грн"**));
 
 >   vs.add(**new** Variant(q, 4, **"Більше"**));
 
@@ -1526,13 +1506,9 @@ qs.add(q);
 
 >   md = q.getMetadata(); vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   .configure()
 
@@ -1561,13 +1537,9 @@ qs.add(q);
 
 >   md = q.getMetadata(); vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   vs.add(**new** Variant(q, 1, **"Чоловіча"**)); vs.add(**new** Variant(q, 2,
 >   **"Жіноча"**));
@@ -1597,13 +1569,9 @@ qs.add(q);
 
 >   md = q.getMetadata(); vs = q.getVariants();
 
->   md.add(**new** Metadata(q, **"n_of_many.min"**,
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, **"1"**));
 
->   **"1"**));
-
->   md.add(**new** Metadata(q, **"n_of_many.max"**,
-
->   **"1"**));
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, **"1"**));
 
 >   variant.getLink1();
 
