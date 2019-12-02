@@ -926,3 +926,793 @@ CRM-системами.
 11. <https://www.google.com/forms/about/>
 
 12. <http://almamater4u.getenjoyment.net/%D0%A2%D0%B5%D1%81%D1%821/Test1.html>
+
+
+
+
+
+
+>   **DROP TABLE IF EXISTS** alternatives; **DROP TABLE IF EXISTS** variants;
+>   **DROP TABLE IF EXISTS** answers;
+
+>   **DROP TABLE IF EXISTS** metadata;
+
+>   **DROP TABLE IF EXISTS** questions;
+
+>   **DROP TABLE IF EXISTS** question_types;
+
+>   **DROP TABLE IF EXISTS** sessions; **DROP TABLE IF EXISTS** experts; **DROP
+>   TABLE IF EXISTS** polls;
+
+>   **CREATE TABLE** polls (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **title VARCHAR**(64) **NOT NULL**,
+
+>   **description VARCHAR**(1024)
+
+>   );
+
+>   **CREATE TABLE** question_types (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **name VARCHAR**(32) **NOT NULL**
+
+>   );
+
+>   **CREATE TABLE** questions (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **qindex INTEGER NOT NULL**, **qtext VARCHAR**(512) **NOT NULL**,
+
+>   **poll INTEGER NOT NULL**, **FOREIGN KEY** (**poll**)
+
+>   **REFERENCES** polls(**id**),
+
+>   **type INTEGER NOT NULL**, **FOREIGN KEY** (**type**)
+
+>   **REFERENCES** question_types(**id**)
+
+>   );
+
+>   **CREATE TABLE** metadata (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **question INTEGER**, **FOREIGN KEY** (**question**) **REFERENCES**
+
+>   questions(**id**),
+
+>   **mkey VARCHAR**(64) **NOT NULL**, **mvalue VARCHAR**(64) **NOT NULL**
+
+>   );
+
+>   **CREATE TABLE** variants (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **question INTEGER NOT NULL**, **FOREIGN KEY** (**question**)
+
+>   **REFERENCES** questions(**id**), **vindex INTEGER NOT NULL**, **text
+>   VARCHAR**(128) **NOT NULL**,
+
+>   **link1 INTEGER**, **FOREIGN KEY** (**link1**) **REFERENCES**
+
+>   variants(**id**),
+
+>   **link2 INTEGER**, **FOREIGN KEY** (**link2**) **REFERENCES**
+
+>   variants(**id**)
+
+>   );
+
+>   **CREATE TABLE** experts (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **username VARCHAR**(64) **UNIQUE NOT NULL**,
+
+>   **realname VARCHAR**(32), **surname VARCHAR**(32),
+
+>   **email VARCHAR**(64) **UNIQUE NOT NULL**
+
+>   );
+
+>   *\# SELECT \* FROM experts*
+
+>   *\# SELECT username FROM experts*
+
+>   *\# INNER JOIN sessions ON sessions.expert = experts.id*
+
+>   *\# WHERE sessions.id = 1*
+
+>   **package** info.necauqua.dbosurvey; **import** java.util.ArrayList;
+>   **import** java.util.List;
+
+>   **public class** Test {
+
+>   **public static void** main(String[] args) **throws**
+
+>   InterruptedException {
+
+>   DBManager manager = **new** DBManager(); Poll first = manager.getPoll(1);
+
+>   System.*out*.println(first.getQuestions().get(2).getTex t());
+
+>   *// manager.addPoll(createGamePoll());*
+
+>   *// manager.addPoll(createCafePoll());*
+
+>   Thread.*sleep*(3000); *// wait for it before*
+
+>   *closing*
+
+>   manager.close();
+
+>   }
+
+>   **private static final** QuestionType *nOfMany* = **new**
+
+>   QuestionType(**"N of Many"**);
+
+>   **private static final** QuestionType *matrix* = **new**
+
+>   QuestionType(**"Matrix"**);
+
+>   **private static final** QuestionType *open* = **new**
+
+>   QuestionType(**"Open"**);
+
+>   **private static final** QuestionType *sort* = **new**
+
+>   QuestionType(**"Sorted"**);
+
+>   **private static** Poll createGamePoll() {
+
+>   Poll poll = **new** Poll(**"Популярність ігор"**, **"bla-bla-bla, this is a
+>   test description"**);
+
+>   List\<Question\> qs = poll.getQuestions();
+
+>   Question q = **new** Question(poll, 1, **"Як часто Ви граєте в ігри?"**,
+>   *nOfMany*);
+
+>   qs.add(q);
+
+>   List\<Metadata\> md = q.getMetadata(); List\<Variant\> vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   vs.add(**new** Variant(q, 1, **"Кожен день"**)); vs.add(**new** Variant(q,
+>   2, **"Декілька разів на**
+
+>   **тиждень"**));
+
+>   vs.add(**new** Variant(q, 3, **"Декілька разів на місяць"**));
+
+>   vs.add(**new** Variant(q, 4, **"Декілька разів на**
+
+>   **рік"**));
+
+>   q = **new** Question(poll, 2, **"Якому виду ігор ви надаєте перевагу?"**,
+>   *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **CREATE TABLE** sessions (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **timestamp TIMESTAMP NOT NULL**,
+
+>   **expert INTEGER NOT NULL**, **FOREIGN KEY** (**expert**)
+
+>   **REFERENCES** experts(**id**)
+
+>   );
+
+>   **CREATE TABLE** answers (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+**"1"**));
+
+**"\*"**));
+
+**"6"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   md.add(**new** Metadata(q, **"open_answer.index"**,
+
+>   vs.add(**new** Variant(q, 1, **"Комп'ютерні"**)); vs.add(**new** Variant(q,
+>   2, **"Настільні"**)); vs.add(**new** Variant(q, 3, **"Карткові"**));
+>   vs.add(**new** Variant(q, 4, **"Навчальні"**)); vs.add(**new** Variant(q, 5,
+>   **"На відкритому**
+
+>   (**id**),
+
+>   **session INTEGER NOT NULL**, **FOREIGN KEY** (**session**)
+
+>   **REFERENCES** sessions(**id**)
+
+>   );
+
+>   **CREATE TABLE** alternatives (
+
+>   **id INTEGER NOT NULL AUTO_INCREMENT**, **PRIMARY KEY**
+
+>   (**id**),
+
+>   **note VARCHAR**(256),
+
+>   **answer INTEGER NOT NULL**, **FOREIGN KEY** (**answer**)
+
+>   **REFERENCES** answers(**id**),
+
+>   **variant INTEGER NOT NULL**, **FOREIGN KEY** (**variant**)
+
+>   **REFERENCES** variants(**id**)
+
+>   );
+
+>   **SELECT** *\** **FROM** question_types;
+
+>   **просторі"**));
+
+>   vs.add(**new** Variant(q, 6, **"Інші (відкрита відповідь)"**));
+
+>   q = **new** Question(poll, 3, **"Ви граєте в наступні комп'ютерні ігри?"**,
+>   *matrix*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q,
+
+>   **"matrix.row_answers.min"**, **"1"**)); md.add(**new** Metadata(q,
+
+>   **"matrix.row_answers.max"**, **"1"**));
+
+>   md.add(**new** Metadata(q, **"matrix.rows"**, **"10"**)); md.add(**new**
+>   Metadata(q, **"matrix.columns"**,
+
+>   **"3"**));
+
+>   List\<Variant\> rows = **new** ArrayList\<\>(); List\<Variant\> columns =
+>   **new** ArrayList\<\>(); rows.add(**new** Variant(q, 1, **"Пригоди"**));
+>   rows.add(**new** Variant(q, 2, **"Бойовики"**)); rows.add(**new** Variant(q,
+>   3, **"Загадки"**)); rows.add(**new** Variant(q, 4, **"Логічні"**));
+>   rows.add(**new** Variant(q, 5, **"MMORPG"**)); rows.add(**new** Variant(q,
+>   6, **"RPG"**)); rows.add(**new** Variant(q, 7, **"Ігри-**
+
+>   **симулятори"**));
+
+>   rows.add(**new** Variant(q, 8, **"Спортивні"**)); rows.add(**new**
+>   Variant(q, 9, **"Стратегії"**)); rows.add(**new** Variant(q, 10,
+>   **"Гонки"**)); columns.add(**new** Variant(q, 11, **"Так"**));
+>   columns.add(**new** Variant(q, 12, **"Час від**
+
+>   **часу"**));
+
+>   columns.add(**new** Variant(q, 13, **"Ні"**));
+
+>   *addMatrix*(q, vs, rows, columns);
+
+>   q = **new** Question(poll, 4, **"Як Ви зазвичай отримуєте комп'ютерні
+>   ігри?"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   q = **new** Question(poll, 10, **"Вкажіть вашу стать:"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   vs.add(**new** Variant(q, 1, **"Чоловіча"**)); vs.add(**new** Variant(q, 2,
+>   **"Жіноча"**)); **return** poll;
+
+>   }
+
+>   **private static** Poll createCafePoll() {
+
+>   Poll poll = **new** Poll(**"Оцінка кафе"**, **"bla-bla- bla, this is a test
+>   description"**);
+
+>   List\<Question\> qs = poll.getQuestions();
+
+>   Question q = **new** Question(poll, 1, **"Як часто ви відвідуєте кафе?"**,
+>   *nOfMany*);
+
+>   qs.add(q);
+
+>   List\<Metadata\> md = q.getMetadata(); List\<Variant\> vs = q.getVariants();
+
+>   **"1"**));
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   vs.add(**new** Variant(q, 1, **"Купую"**)); vs.add(**new** Variant(q, 2,
+>   **"Беру на прокат"**)); vs.add(**new** Variant(q, 3, **"Качаю з**
+
+>   **"1"**));
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**, vs.add(**new** Variant(q, 1,
+>   **"Щодня"**));
+
+>   **інтернету"**));
+
+>   q = **new** Question(poll, 5, **"Ви граєте на цих пристроях?"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   vs.add(**new** Variant(q, 2, **"Декілька разів на тиждень"**));
+
+>   vs.add(**new** Variant(q, 3, **"Раз в тиждень"**)); vs.add(**new**
+>   Variant(q, 4, **"Декілька разів на**
+
+>   **місяць"**));
+
+>   vs.add(**new** Variant(q, 5, **"Раз в місяць"**)); vs.add(**new** Variant(q,
+>   6, **"Декілька разів на**
+
+**"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **рік"**));
+
+>   vs.add(**new** Variant(q, 7, **"Вперше"**));
+
+>   q = **new** Question(poll, 2, **"Зазначте настільки**
+
+**"\*"**));
+
+>   vs.add(**new** Variant(q, 1, **"Комп'ютер"**)); vs.add(**new** Variant(q, 2,
+>   **"Ноутбук"**)); vs.add(**new** Variant(q, 3, **"Мобільний**
+
+>   **ви згодні з наступними висловлюваннями?"**, *matrix*); qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   **телефон"**));
+
+>   vs.add(**new** Variant(q, 4, **"Консоль"**));
+
+>   q = **new** Question(poll, 6, **"Комп'ютер vs. консоль?"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q,
+
+>   **"matrix.row_answers.min"**, **"1"**)); md.add(**new** Metadata(q,
+
+>   **"matrix.row_answers.max"**, **"1"**));
+
+>   md.add(**new** Metadata(q, **"matrix.rows"**, **"5"**)); md.add(**new**
+>   Metadata(q, **"matrix.columns"**,
+
+>   **"4"**));
+
+**"1"**));
+
+**"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**, md.add(**new** Metadata(q,
+>   **"n_of_many.max"**,
+
+>   vs.add(**new** Variant(q, 1, **"Комп'ютер"**)); vs.add(**new** Variant(q, 2,
+>   **"Консоль"**)); vs.add(**new** Variant(q, 3, **"Жоден з**
+
+>   List\<Variant\> rows = **new** ArrayList\<\>(); List\<Variant\> columns =
+>   **new** ArrayList\<\>();
+
+>   rows.add(**new** Variant(q, 1, **"Закуски були поданні відмінно"**));
+
+>   rows.add(**new** Variant(q, 2, **"Закуски були якісні і смачні"**));
+
+>   **варіантів"**));
+
+>   q = **new** Question(poll, 7, **"PlayStation vs.**
+
+**Xbox?"**, *nOfMany*);
+
+qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   vs.add(**new** Variant(q, 1, **"PlayStation"**)); vs.add(**new** Variant(q,
+>   2, **"Xbox"**)); vs.add(**new** Variant(q, 3, **"Жоден з**
+
+>   **варіантів"**));
+
+>   q = **new** Question(poll, 8, **"Назвіть свою улюблену гру:"**, *open*);
+
+>   qs.add(q);
+
+>   q = **new** Question(poll, 9, **"Яку суму на рік Ви витрачаєте на ігри?"**,
+>   *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   vs.add(**new** Variant(q, 1, **"0 - 500 грн"**));
+
+>   vs.add(**new** Variant(q, 2, **"501 - 1000 грн"**));
+
+>   vs.add(**new** Variant(q, 3, **"1 001 - 2 500**
+
+>   **грн"**));
+
+>   vs.add(**new** Variant(q, 4, **"Більше"**));
+
+>   rows.add(**new** Variant(q, 3, **"Ціна була приваблива"**));
+
+>   rows.add(**new** Variant(q, 4, **"Інтер'єр кафе був приємним"**));
+
+>   rows.add(**new** Variant(q, 5, **"WiFi підключення достатньо швидке і
+>   якісне"**));
+
+>   columns.add(**new** Variant(q, 6, **"Повністю погоджуюсь"**));
+
+>   columns.add(**new** Variant(q, 7, **"Погоджуюсь"**)); columns.add(**new**
+>   Variant(q, 8,
+
+>   **"Непогоджуюсь"**));
+
+>   columns.add(**new** Variant(q, 9, **"Зовсім непогоджуюсь"**));
+
+>   *addMatrix*(q, vs, rows, columns);
+
+>   q = **new** Question(poll, 3, **"Відсортуйте від найкращого до
+>   найгіршого"**, *sort*);
+
+>   qs.add(q);
+
+>   vs = q.getVariants();
+
+>   List\<Variant\> toSort = **new** ArrayList\<\>(); toSort.add(**new**
+>   Variant(q, 1, **"Інтер'єр"**)); toSort.add(**new** Variant(q, 2,
+
+>   **"Обслуговування"**));
+
+>   toSort.add(**new** Variant(q, 3, **"Смак страв"**)); toSort.add(**new**
+>   Variant(q, 4, **"Смак напоїв"**)); toSort.add(**new** Variant(q, 5,
+>   **"Чистота у**
+
+>   **вбиральні"**));
+
+>   toSort.add(**new** Variant(q, 6, **"Місце розташування закладу"**));
+
+*addMatrix*(q, vs, toSort, toSort);
+
+*// addMatrix(q, vs, toSort, toSort.stream()*
+
+*// .map(v -\> new*
+
+>   *Variant(v.getQuestion(), v.getIndex(), ""))*
+
+>   *// .collect(Collectors.toList()));*
+
+>   q = **new** Question(poll, 4, **"Оцініть наше кафе"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **import** org.hibernate.SessionFactory; **import**
+>   org.hibernate.Transaction; **import** org.hibernate.cfg.Configuration;
+
+>   **public class** DBManager {
+
+>   **private final** SessionFactory **sessionFactory**; **public** DBManager()
+>   {
+
+>   **try** {
+
+>   **sessionFactory** = **new** Configuration()
+
+>   **"1"**));
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   vs.add(**new** Variant(q, 1, **"1"**));
+
+>   vs.add(**new** Variant(q, 2, **"2"**));
+
+>   vs.add(**new** Variant(q, 3, **"3"**));
+
+>   vs.add(**new** Variant(q, 4, **"4"**));
+
+>   vs.add(**new** Variant(q, 5, **"5"**));
+
+>   q = **new** Question(poll, 5, **"Чи порекомендували**
+
+>   .addPackage(**"info.necauqua.dbosurvey"**)
+
+>   .addAnnotatedClass(Alternative.**class**)
+
+>   .addAnnotatedClass(Answer.**class**)
+
+>   .addAnnotatedClass(Expert.**class**)
+
+>   .addAnnotatedClass(Metadata.**class**)
+
+>   .addAnnotatedClass(Poll.**class**)
+
+>   .addAnnotatedClass(Question.**class**)
+
+>   .addAnnotatedClass(QuestionType.**class**)
+
+>   .addAnnotatedClass(Session.**class**)
+
+>   .addAnnotatedClass(Variant.**class**)
+
+>   **б ви наше кафе?"**, *nOfMany*); qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   .configure()
+
+>   .buildSessionFactory();
+
+>   }**catch** (Throwable ex) {
+
+>   **throw new**
+
+>   ExceptionInInitializerError(ex);
+
+}
+
+>   }
+
+>   **public void** close() { **sessionFactory**.getCurrentSession().close();
+>   **sessionFactory**.close();
+
+>   vs.add(**new** Variant(q, 1, **"Так"**));
+
+>   vs.add(**new** Variant(q, 2, **"Ні"**));
+
+>   q = **new** Question(poll, 6, **"Вкажіть вашу стать:"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   vs.add(**new** Variant(q, 1, **"Чоловіча"**)); vs.add(**new** Variant(q, 2,
+>   **"Жіноча"**));
+
+>   }
+
+>   **public void** addPoll(Poll poll) { Transaction tx = **null**;
+>   org.hibernate.Session session =
+
+>   **sessionFactory**.getCurrentSession(); **try** {
+
+>   tx = session.beginTransaction(); session.save(poll);
+
+>   **for**(Question question : poll.getQuestions()) {
+
+>   session.saveOrUpdate(question.getType());
+
+>   session.save(question);
+
+>   **for**(Variant variant : question.getVariants()) {
+
+>   Variant link1 =
+
+>   q = **new** Question(poll, 7, **"Вкажіть вашу вікову групу:"**, *nOfMany*);
+
+>   qs.add(q);
+
+>   md = q.getMetadata(); vs = q.getVariants();
+
+>   md.add(**new** Metadata(q, **"n_of_many.min"**,
+
+>   **"1"**));
+
+>   md.add(**new** Metadata(q, **"n_of_many.max"**,
+
+>   **"1"**));
+
+>   variant.getLink1();
+
+>   variant.getLink2();
+
+}
+
+>   **if**(link1 != **null**) { session.save(link1);
+
+>   }
+
+>   Variant link2 =
+
+>   **if**(link2 != **null**) { session.save(link2);
+
+>   }
+
+>   session.save(variant);
+
+>   vs.add(**new** Variant(q, 1, **"\<20"**));
+
+>   vs.add(**new** Variant(q, 2, **"21-30"**));
+
+>   vs.add(**new** Variant(q, 3, **"31-40"**));
+
+>   vs.add(**new** Variant(q, 4, **"41-50"**));
+
+>   vs.add(**new** Variant(q, 5, **"51-60"**));
+
+>   vs.add(**new** Variant(q, 6, **"60+"**));
+
+>   **return** poll;
+
+>   }
+
+>   **private static void** addMatrix(Question q, List\<Variant\> vs,
+>   List\<Variant\> rows, List\<Variant\> columns) {
+
+>   vs.addAll(rows);
+
+>   **if**(columns != rows) { vs.addAll(columns);
+
+>   }
+
+>   **for**(Variant row : rows) {
+
+>   **for**(Variant column : columns) { Variant v = **new** Variant(q, 0,
+>   **""**); row.setLink1(v); column.setLink1(v); v.setLink1(row);
+>   v.setLink2(column);
+
+>   vs.add(v);
+
+>   }
+
+>   }
+
+>   }
+
+>   }
+
+>   **package** info.necauqua.dbosurvey;
+
+>   **package** info.necauqua.dbosurvey;
+
+>   **import** org.hibernate.HibernateException;
+
+>   **for**(Metadata metadata : question.getMetadata()) {
+
+>   session.save(metadata);
+
+>   }
+
+>   }
+
+>   tx.commit();
+
+>   }**catch**(HibernateException e) {
+
+>   **if**(tx != **null**) { tx.rollback();
+
+>   }
+
+>   e.printStackTrace();
+
+>   }
+
+>   }
+
+>   **public** Poll getPoll(**int** id) { Transaction tx = **null**;
+>   org.hibernate.Session session =
+
+>   **sessionFactory**.getCurrentSession(); **try** {
+
+>   tx = session.beginTransaction();
+
+>   **return** session.get(Poll.**class**, id);
+
+>   }**catch**(Exception e) {
+
+>   **if**(tx != **null**) { tx.rollback();
+
+>   }
+
+>   e.printStackTrace();
+
+>   **return null**;
+
+>   }
+
+>   }
+
+>   }
