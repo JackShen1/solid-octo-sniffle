@@ -859,6 +859,10 @@ CRM-системами.
 
 *Посилання на Sequence Diagram:* [img/sequence.png](img/sequence.png)
 
+MySQL Workbench діаграма:
+
+*Посилання на діаграму сутностей:* [img/class.png](img/class.png)
+
 \*\* 6. Надійність \*\*
 --------------------
 
