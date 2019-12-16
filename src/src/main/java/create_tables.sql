@@ -1,0 +1,79 @@
+
+DROP TABLE IF EXISTS alternatives;
+DROP TABLE IF EXISTS variants;
+DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS metadata;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS question_types;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS experts;
+DROP TABLE IF EXISTS polls;
+
+CREATE TABLE polls (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  title VARCHAR(64) NOT NULL,
+  description VARCHAR(1024)
+);
+
+CREATE TABLE question_types (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  name VARCHAR(32) NOT NULL
+);
+
+CREATE TABLE questions (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  qindex INTEGER NOT NULL,
+  qtext VARCHAR(512) NOT NULL,
+  poll INTEGER NOT NULL, FOREIGN KEY (poll) REFERENCES polls(id),
+  type INTEGER NOT NULL, FOREIGN KEY (type) REFERENCES question_types(id)
+);
+
+CREATE TABLE metadata (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  question INTEGER, FOREIGN KEY (question) REFERENCES questions(id),
+  mkey VARCHAR(64) NOT NULL,
+  mvalue VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE variants (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  question INTEGER NOT NULL, FOREIGN KEY (question) REFERENCES questions(id),
+  vindex INTEGER NOT NULL,
+  text VARCHAR(128) NOT NULL,
+  link1 INTEGER, FOREIGN KEY (link1) REFERENCES variants(id),
+  link2 INTEGER, FOREIGN KEY (link2) REFERENCES variants(id)
+);
+
+CREATE TABLE experts (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  username VARCHAR(64) UNIQUE NOT NULL,
+  realname VARCHAR(32),
+  surname VARCHAR(32),
+  email VARCHAR(64) UNIQUE NOT NULL
+);
+
+CREATE TABLE sessions (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  timestamp TIMESTAMP NOT NULL,
+  expert INTEGER NOT NULL, FOREIGN KEY (expert) REFERENCES experts(id)
+);
+
+CREATE TABLE answers (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  session INTEGER NOT NULL, FOREIGN KEY (session) REFERENCES sessions(id)
+);
+
+CREATE TABLE alternatives (
+  id INTEGER NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
+  note VARCHAR(256),
+  answer INTEGER NOT NULL, FOREIGN KEY (answer) REFERENCES answers(id),
+  variant INTEGER NOT NULL, FOREIGN KEY (variant) REFERENCES variants(id)
+);
+
+SELECT * FROM question_types;
+
+# SELECT * FROM experts
+
+# SELECT username FROM experts
+#   INNER JOIN sessions ON sessions.expert = experts.id
+#   WHERE sessions.id = 1
